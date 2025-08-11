@@ -5,6 +5,8 @@ package link.v1;
 option go_package = "github.com/Anabol1ks/linkvault-proto/link/v1;linkv1";
 
 import "validate/validate.proto";
+import "google/protobuf/wrappers.proto";
+
 
 service LinkService {
   rpc CreateShortLink(CreateShortLinkRequest) returns (ShortLinkResponse);
@@ -30,8 +32,8 @@ message ShortLinkResponse {
   string short_url = 2 [(validate.rules).string = {uri: true}];
   string original_url = 3 [(validate.rules).string = {uri: true}];
   string short_code = 4 [(validate.rules).string = {min_len: 4, max_len: 32}];
-  string user_id = 5 [(validate.rules).string = {uuid: true}];
-  string expire_at = 6;
+  google.protobuf.StringValue user_id = 5 [(validate.rules).string = {uuid: true}];
+  google.protobuf.StringValue expire_at = 6;
   bool is_active = 7;
 }
 
