@@ -114,28 +114,8 @@ func (m *CreateShortLinkRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if err := m._validateUuid(m.GetUserId()); err != nil {
-		err = CreateShortLinkRequestValidationError{
-			field:  "UserId",
-			reason: "value must be a valid UUID",
-			cause:  err,
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
 	if len(errors) > 0 {
 		return CreateShortLinkRequestMultiError(errors)
-	}
-
-	return nil
-}
-
-func (m *CreateShortLinkRequest) _validateUuid(uuid string) error {
-	if matched := _link_uuidPattern.MatchString(uuid); !matched {
-		return errors.New("invalid uuid format")
 	}
 
 	return nil

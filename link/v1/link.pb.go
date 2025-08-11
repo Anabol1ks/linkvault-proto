@@ -26,7 +26,6 @@ type CreateShortLinkRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	OriginalUrl   string                 `protobuf:"bytes,1,opt,name=original_url,json=originalUrl,proto3" json:"original_url,omitempty"`
 	ExpireAfter   string                 `protobuf:"bytes,2,opt,name=expire_after,json=expireAfter,proto3" json:"expire_after,omitempty"`
-	UserId        string                 `protobuf:"bytes,3,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -71,13 +70,6 @@ func (x *CreateShortLinkRequest) GetOriginalUrl() string {
 func (x *CreateShortLinkRequest) GetExpireAfter() string {
 	if x != nil {
 		return x.ExpireAfter
-	}
-	return ""
-}
-
-func (x *CreateShortLinkRequest) GetUserId() string {
-	if x != nil {
-		return x.UserId
 	}
 	return ""
 }
@@ -848,12 +840,11 @@ var File_link_v1_link_proto protoreflect.FileDescriptor
 
 const file_link_v1_link_proto_rawDesc = "" +
 	"\n" +
-	"\x12link/v1/link.proto\x12\alink.v1\x1a\x17validate/validate.proto\"\xaa\x01\n" +
+	"\x12link/v1/link.proto\x12\alink.v1\x1a\x17validate/validate.proto\"\x87\x01\n" +
 	"\x16CreateShortLinkRequest\x120\n" +
 	"\foriginal_url\x18\x01 \x01(\tB\r\xfaB\n" +
 	"r\b\x10\x05\x18\x80\x10\x88\x01\x01R\voriginalUrl\x12;\n" +
-	"\fexpire_after\x18\x02 \x01(\tB\x18\xfaB\x15r\x13\x18\x102\x0f^[0-9]+[smhdw]$R\vexpireAfter\x12!\n" +
-	"\auser_id\x18\x03 \x01(\tB\b\xfaB\x05r\x03\xb0\x01\x01R\x06userId\"\x88\x02\n" +
+	"\fexpire_after\x18\x02 \x01(\tB\x18\xfaB\x15r\x13\x18\x102\x0f^[0-9]+[smhdw]$R\vexpireAfter\"\x88\x02\n" +
 	"\x11ShortLinkResponse\x12\x18\n" +
 	"\x02id\x18\x01 \x01(\tB\b\xfaB\x05r\x03\xb0\x01\x01R\x02id\x12%\n" +
 	"\tshort_url\x18\x02 \x01(\tB\b\xfaB\x05r\x03\x88\x01\x01R\bshortUrl\x12+\n" +

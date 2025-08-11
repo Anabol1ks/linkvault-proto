@@ -23,7 +23,6 @@ message CreateShortLinkRequest {
       pattern: "^[0-9]+[smhdw]$",
       max_len: 16
     }];
-  string user_id = 3 [(validate.rules).string = {uuid: true}];
 }
 
 message ShortLinkResponse {
