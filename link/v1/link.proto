@@ -33,7 +33,7 @@ message ShortLinkResponse {
   string original_url = 3 [(validate.rules).string = {uri: true}];
   string short_code = 4 [(validate.rules).string = {min_len: 4, max_len: 32}];
   google.protobuf.StringValue user_id = 5 [(validate.rules).string = {uuid: true}];
-  google.protobuf.StringValue expire_at = 6;
+  string expire_at = 6;
   bool is_active = 7;
 }
 

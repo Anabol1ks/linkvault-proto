@@ -82,7 +82,7 @@ type ShortLinkResponse struct {
 	OriginalUrl   string                  `protobuf:"bytes,3,opt,name=original_url,json=originalUrl,proto3" json:"original_url,omitempty"`
 	ShortCode     string                  `protobuf:"bytes,4,opt,name=short_code,json=shortCode,proto3" json:"short_code,omitempty"`
 	UserId        *wrapperspb.StringValue `protobuf:"bytes,5,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	ExpireAt      *wrapperspb.StringValue `protobuf:"bytes,6,opt,name=expire_at,json=expireAt,proto3" json:"expire_at,omitempty"`
+	ExpireAt      string                  `protobuf:"bytes,6,opt,name=expire_at,json=expireAt,proto3" json:"expire_at,omitempty"`
 	IsActive      bool                    `protobuf:"varint,7,opt,name=is_active,json=isActive,proto3" json:"is_active,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -153,11 +153,11 @@ func (x *ShortLinkResponse) GetUserId() *wrapperspb.StringValue {
 	return nil
 }
 
-func (x *ShortLinkResponse) GetExpireAt() *wrapperspb.StringValue {
+func (x *ShortLinkResponse) GetExpireAt() string {
 	if x != nil {
 		return x.ExpireAt
 	}
-	return nil
+	return ""
 }
 
 func (x *ShortLinkResponse) GetIsActive() bool {
@@ -845,15 +845,15 @@ const file_link_v1_link_proto_rawDesc = "" +
 	"\x16CreateShortLinkRequest\x120\n" +
 	"\foriginal_url\x18\x01 \x01(\tB\r\xfaB\n" +
 	"r\b\x10\x05\x18\x80\x10\x88\x01\x01R\voriginalUrl\x12;\n" +
-	"\fexpire_after\x18\x02 \x01(\tB\x18\xfaB\x15r\x13\x18\x102\x0f^[0-9]+[smhdw]$R\vexpireAfter\"\xc4\x02\n" +
+	"\fexpire_after\x18\x02 \x01(\tB\x18\xfaB\x15r\x13\x18\x102\x0f^[0-9]+[smhdw]$R\vexpireAfter\"\xa6\x02\n" +
 	"\x11ShortLinkResponse\x12\x18\n" +
 	"\x02id\x18\x01 \x01(\tB\b\xfaB\x05r\x03\xb0\x01\x01R\x02id\x12%\n" +
 	"\tshort_url\x18\x02 \x01(\tB\b\xfaB\x05r\x03\x88\x01\x01R\bshortUrl\x12+\n" +
 	"\foriginal_url\x18\x03 \x01(\tB\b\xfaB\x05r\x03\x88\x01\x01R\voriginalUrl\x12(\n" +
 	"\n" +
 	"short_code\x18\x04 \x01(\tB\t\xfaB\x06r\x04\x10\x04\x18 R\tshortCode\x12?\n" +
-	"\auser_id\x18\x05 \x01(\v2\x1c.google.protobuf.StringValueB\b\xfaB\x05r\x03\xb0\x01\x01R\x06userId\x129\n" +
-	"\texpire_at\x18\x06 \x01(\v2\x1c.google.protobuf.StringValueR\bexpireAt\x12\x1b\n" +
+	"\auser_id\x18\x05 \x01(\v2\x1c.google.protobuf.StringValueB\b\xfaB\x05r\x03\xb0\x01\x01R\x06userId\x12\x1b\n" +
+	"\texpire_at\x18\x06 \x01(\tR\bexpireAt\x12\x1b\n" +
 	"\tis_active\x18\a \x01(\bR\bisActive\"/\n" +
 	"\x13GetShortLinkRequest\x12\x18\n" +
 	"\x02id\x18\x01 \x01(\tB\b\xfaB\x05r\x03\xb0\x01\x01R\x02id\"?\n" +
@@ -948,31 +948,30 @@ var file_link_v1_link_proto_goTypes = []any{
 }
 var file_link_v1_link_proto_depIdxs = []int32{
 	17, // 0: link.v1.ShortLinkResponse.user_id:type_name -> google.protobuf.StringValue
-	17, // 1: link.v1.ShortLinkResponse.expire_at:type_name -> google.protobuf.StringValue
-	1,  // 2: link.v1.ListShortLinksResponse.links:type_name -> link.v1.ShortLinkResponse
-	11, // 3: link.v1.LinkStatsResponse.stats:type_name -> link.v1.DetailedLinkStats
-	15, // 4: link.v1.DetailedLinkStats.countries_stats:type_name -> link.v1.DetailedLinkStats.CountriesStatsEntry
-	16, // 5: link.v1.DetailedLinkStats.daily_stats:type_name -> link.v1.DetailedLinkStats.DailyStatsEntry
-	14, // 6: link.v1.GetLinkClicksResponse.clicks:type_name -> link.v1.Click
-	0,  // 7: link.v1.LinkService.CreateShortLink:input_type -> link.v1.CreateShortLinkRequest
-	2,  // 8: link.v1.LinkService.GetShortLink:input_type -> link.v1.GetShortLinkRequest
-	3,  // 9: link.v1.LinkService.RedirectLink:input_type -> link.v1.RedirectLinkRequest
-	5,  // 10: link.v1.LinkService.DeleteShortLink:input_type -> link.v1.DeleteShortLinkRequest
-	7,  // 11: link.v1.LinkService.ListShortLinks:input_type -> link.v1.ListShortLinksRequest
-	9,  // 12: link.v1.LinkService.GetLinkStats:input_type -> link.v1.GetLinkStatsRequest
-	12, // 13: link.v1.LinkService.GetLinkClicks:input_type -> link.v1.GetLinkClicksRequest
-	1,  // 14: link.v1.LinkService.CreateShortLink:output_type -> link.v1.ShortLinkResponse
-	1,  // 15: link.v1.LinkService.GetShortLink:output_type -> link.v1.ShortLinkResponse
-	4,  // 16: link.v1.LinkService.RedirectLink:output_type -> link.v1.RedirectLinkResponse
-	6,  // 17: link.v1.LinkService.DeleteShortLink:output_type -> link.v1.DeleteShortLinkResponse
-	8,  // 18: link.v1.LinkService.ListShortLinks:output_type -> link.v1.ListShortLinksResponse
-	10, // 19: link.v1.LinkService.GetLinkStats:output_type -> link.v1.LinkStatsResponse
-	13, // 20: link.v1.LinkService.GetLinkClicks:output_type -> link.v1.GetLinkClicksResponse
-	14, // [14:21] is the sub-list for method output_type
-	7,  // [7:14] is the sub-list for method input_type
-	7,  // [7:7] is the sub-list for extension type_name
-	7,  // [7:7] is the sub-list for extension extendee
-	0,  // [0:7] is the sub-list for field type_name
+	1,  // 1: link.v1.ListShortLinksResponse.links:type_name -> link.v1.ShortLinkResponse
+	11, // 2: link.v1.LinkStatsResponse.stats:type_name -> link.v1.DetailedLinkStats
+	15, // 3: link.v1.DetailedLinkStats.countries_stats:type_name -> link.v1.DetailedLinkStats.CountriesStatsEntry
+	16, // 4: link.v1.DetailedLinkStats.daily_stats:type_name -> link.v1.DetailedLinkStats.DailyStatsEntry
+	14, // 5: link.v1.GetLinkClicksResponse.clicks:type_name -> link.v1.Click
+	0,  // 6: link.v1.LinkService.CreateShortLink:input_type -> link.v1.CreateShortLinkRequest
+	2,  // 7: link.v1.LinkService.GetShortLink:input_type -> link.v1.GetShortLinkRequest
+	3,  // 8: link.v1.LinkService.RedirectLink:input_type -> link.v1.RedirectLinkRequest
+	5,  // 9: link.v1.LinkService.DeleteShortLink:input_type -> link.v1.DeleteShortLinkRequest
+	7,  // 10: link.v1.LinkService.ListShortLinks:input_type -> link.v1.ListShortLinksRequest
+	9,  // 11: link.v1.LinkService.GetLinkStats:input_type -> link.v1.GetLinkStatsRequest
+	12, // 12: link.v1.LinkService.GetLinkClicks:input_type -> link.v1.GetLinkClicksRequest
+	1,  // 13: link.v1.LinkService.CreateShortLink:output_type -> link.v1.ShortLinkResponse
+	1,  // 14: link.v1.LinkService.GetShortLink:output_type -> link.v1.ShortLinkResponse
+	4,  // 15: link.v1.LinkService.RedirectLink:output_type -> link.v1.RedirectLinkResponse
+	6,  // 16: link.v1.LinkService.DeleteShortLink:output_type -> link.v1.DeleteShortLinkResponse
+	8,  // 17: link.v1.LinkService.ListShortLinks:output_type -> link.v1.ListShortLinksResponse
+	10, // 18: link.v1.LinkService.GetLinkStats:output_type -> link.v1.LinkStatsResponse
+	13, // 19: link.v1.LinkService.GetLinkClicks:output_type -> link.v1.GetLinkClicksResponse
+	13, // [13:20] is the sub-list for method output_type
+	6,  // [6:13] is the sub-list for method input_type
+	6,  // [6:6] is the sub-list for extension type_name
+	6,  // [6:6] is the sub-list for extension extendee
+	0,  // [0:6] is the sub-list for field type_name
 }
 
 func init() { file_link_v1_link_proto_init() }
