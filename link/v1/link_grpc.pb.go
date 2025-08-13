@@ -11,6 +11,7 @@ import (
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
+	emptypb "google.golang.org/protobuf/types/known/emptypb"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -36,7 +37,7 @@ type LinkServiceClient interface {
 	GetShortLink(ctx context.Context, in *GetShortLinkRequest, opts ...grpc.CallOption) (*ShortLinkResponse, error)
 	RedirectLink(ctx context.Context, in *RedirectLinkRequest, opts ...grpc.CallOption) (*RedirectLinkResponse, error)
 	DeleteShortLink(ctx context.Context, in *DeleteShortLinkRequest, opts ...grpc.CallOption) (*DeleteShortLinkResponse, error)
-	ListShortLinks(ctx context.Context, in *ListShortLinksRequest, opts ...grpc.CallOption) (*ListShortLinksResponse, error)
+	ListShortLinks(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*ListShortLinksResponse, error)
 	GetLinkStats(ctx context.Context, in *GetLinkStatsRequest, opts ...grpc.CallOption) (*LinkStatsResponse, error)
 	GetLinkClicks(ctx context.Context, in *GetLinkClicksRequest, opts ...grpc.CallOption) (*GetLinkClicksResponse, error)
 }
@@ -89,7 +90,7 @@ func (c *linkServiceClient) DeleteShortLink(ctx context.Context, in *DeleteShort
 	return out, nil
 }
 
-func (c *linkServiceClient) ListShortLinks(ctx context.Context, in *ListShortLinksRequest, opts ...grpc.CallOption) (*ListShortLinksResponse, error) {
+func (c *linkServiceClient) ListShortLinks(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*ListShortLinksResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(ListShortLinksResponse)
 	err := c.cc.Invoke(ctx, LinkService_ListShortLinks_FullMethodName, in, out, cOpts...)
@@ -127,7 +128,7 @@ type LinkServiceServer interface {
 	GetShortLink(context.Context, *GetShortLinkRequest) (*ShortLinkResponse, error)
 	RedirectLink(context.Context, *RedirectLinkRequest) (*RedirectLinkResponse, error)
 	DeleteShortLink(context.Context, *DeleteShortLinkRequest) (*DeleteShortLinkResponse, error)
-	ListShortLinks(context.Context, *ListShortLinksRequest) (*ListShortLinksResponse, error)
+	ListShortLinks(context.Context, *emptypb.Empty) (*ListShortLinksResponse, error)
 	GetLinkStats(context.Context, *GetLinkStatsRequest) (*LinkStatsResponse, error)
 	GetLinkClicks(context.Context, *GetLinkClicksRequest) (*GetLinkClicksResponse, error)
 	mustEmbedUnimplementedLinkServiceServer()
@@ -152,7 +153,7 @@ func (UnimplementedLinkServiceServer) RedirectLink(context.Context, *RedirectLin
 func (UnimplementedLinkServiceServer) DeleteShortLink(context.Context, *DeleteShortLinkRequest) (*DeleteShortLinkResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteShortLink not implemented")
 }
-func (UnimplementedLinkServiceServer) ListShortLinks(context.Context, *ListShortLinksRequest) (*ListShortLinksResponse, error) {
+func (UnimplementedLinkServiceServer) ListShortLinks(context.Context, *emptypb.Empty) (*ListShortLinksResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListShortLinks not implemented")
 }
 func (UnimplementedLinkServiceServer) GetLinkStats(context.Context, *GetLinkStatsRequest) (*LinkStatsResponse, error) {
@@ -255,7 +256,7 @@ func _LinkService_DeleteShortLink_Handler(srv interface{}, ctx context.Context, 
 }
 
 func _LinkService_ListShortLinks_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ListShortLinksRequest)
+	in := new(emptypb.Empty)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -267,7 +268,7 @@ func _LinkService_ListShortLinks_Handler(srv interface{}, ctx context.Context, d
 		FullMethod: LinkService_ListShortLinks_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(LinkServiceServer).ListShortLinks(ctx, req.(*ListShortLinksRequest))
+		return srv.(LinkServiceServer).ListShortLinks(ctx, req.(*emptypb.Empty))
 	}
 	return interceptor(ctx, in, info, handler)
 }
