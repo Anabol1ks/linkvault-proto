@@ -52,7 +52,6 @@ message RedirectLinkResponse {
 
 message DeleteShortLinkRequest {
   string id = 1 [(validate.rules).string = {uuid: true}];
-  string user_id = 2 [(validate.rules).string = {uuid: true}];
 }
 
 message DeleteShortLinkResponse {

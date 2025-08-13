@@ -303,7 +303,6 @@ func (x *RedirectLinkResponse) GetOriginalUrl() string {
 type DeleteShortLinkRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	UserId        string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -341,13 +340,6 @@ func (*DeleteShortLinkRequest) Descriptor() ([]byte, []int) {
 func (x *DeleteShortLinkRequest) GetId() string {
 	if x != nil {
 		return x.Id
-	}
-	return ""
-}
-
-func (x *DeleteShortLinkRequest) GetUserId() string {
-	if x != nil {
-		return x.UserId
 	}
 	return ""
 }
@@ -818,10 +810,9 @@ const file_link_v1_link_proto_rawDesc = "" +
 	"\n" +
 	"short_code\x18\x01 \x01(\tB\t\xfaB\x06r\x04\x10\x04\x18 R\tshortCode\"C\n" +
 	"\x14RedirectLinkResponse\x12+\n" +
-	"\foriginal_url\x18\x01 \x01(\tB\b\xfaB\x05r\x03\x88\x01\x01R\voriginalUrl\"U\n" +
+	"\foriginal_url\x18\x01 \x01(\tB\b\xfaB\x05r\x03\x88\x01\x01R\voriginalUrl\"2\n" +
 	"\x16DeleteShortLinkRequest\x12\x18\n" +
-	"\x02id\x18\x01 \x01(\tB\b\xfaB\x05r\x03\xb0\x01\x01R\x02id\x12!\n" +
-	"\auser_id\x18\x02 \x01(\tB\b\xfaB\x05r\x03\xb0\x01\x01R\x06userId\"=\n" +
+	"\x02id\x18\x01 \x01(\tB\b\xfaB\x05r\x03\xb0\x01\x01R\x02id\"=\n" +
 	"\x17DeleteShortLinkResponse\x12\"\n" +
 	"\amessage\x18\x01 \x01(\tB\b\xfaB\x05r\x03\x18\x80\x02R\amessage\"J\n" +
 	"\x16ListShortLinksResponse\x120\n" +
