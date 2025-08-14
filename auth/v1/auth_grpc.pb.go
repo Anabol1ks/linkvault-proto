@@ -36,15 +36,25 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type AuthServiceClient interface {
+	// Регистрация нового пользователя
 	Register(ctx context.Context, in *RegisterRequest, opts ...grpc.CallOption) (*RegisterResponse, error)
+	// Логин (получение пары токенов)
 	Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*TokenPair, error)
+	// Обновление токенов по refresh_token
 	Refresh(ctx context.Context, in *RefreshRequest, opts ...grpc.CallOption) (*TokenPair, error)
+	// Профиль текущего пользователя (по JWT)
 	GetProfile(ctx context.Context, in *GetProfileRequest, opts ...grpc.CallOption) (*UserProfile, error)
+	// Выход (инвалидация refresh-токена)
 	Logout(ctx context.Context, in *LogoutRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	// Валидация access токена (внутреннее / отладка)
 	ValidateAccessToken(ctx context.Context, in *ValidateAccessTokenRequest, opts ...grpc.CallOption) (*ValidateAccessTokenResponse, error)
+	// Подтверждение email (ссылка из письма)
 	VerifyEmail(ctx context.Context, in *VerifyEmailRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	// Повторная отправка письма подтверждения
 	ResendVerificationEmail(ctx context.Context, in *ResendVerificationEmailRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	// Запрос на сброс пароля (отправка письма)
 	RequestPasswordReset(ctx context.Context, in *RequestPasswordResetRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	// Подтверждение сброса пароля
 	ConfirmPasswordReset(ctx context.Context, in *ConfirmPasswordResetRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
@@ -160,15 +170,25 @@ func (c *authServiceClient) ConfirmPasswordReset(ctx context.Context, in *Confir
 // All implementations must embed UnimplementedAuthServiceServer
 // for forward compatibility.
 type AuthServiceServer interface {
+	// Регистрация нового пользователя
 	Register(context.Context, *RegisterRequest) (*RegisterResponse, error)
+	// Логин (получение пары токенов)
 	Login(context.Context, *LoginRequest) (*TokenPair, error)
+	// Обновление токенов по refresh_token
 	Refresh(context.Context, *RefreshRequest) (*TokenPair, error)
+	// Профиль текущего пользователя (по JWT)
 	GetProfile(context.Context, *GetProfileRequest) (*UserProfile, error)
+	// Выход (инвалидация refresh-токена)
 	Logout(context.Context, *LogoutRequest) (*emptypb.Empty, error)
+	// Валидация access токена (внутреннее / отладка)
 	ValidateAccessToken(context.Context, *ValidateAccessTokenRequest) (*ValidateAccessTokenResponse, error)
+	// Подтверждение email (ссылка из письма)
 	VerifyEmail(context.Context, *VerifyEmailRequest) (*emptypb.Empty, error)
+	// Повторная отправка письма подтверждения
 	ResendVerificationEmail(context.Context, *ResendVerificationEmailRequest) (*emptypb.Empty, error)
+	// Запрос на сброс пароля (отправка письма)
 	RequestPasswordReset(context.Context, *RequestPasswordResetRequest) (*emptypb.Empty, error)
+	// Подтверждение сброса пароля
 	ConfirmPasswordReset(context.Context, *ConfirmPasswordResetRequest) (*emptypb.Empty, error)
 	mustEmbedUnimplementedAuthServiceServer()
 }

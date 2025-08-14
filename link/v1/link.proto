@@ -7,25 +7,66 @@ option go_package = "github.com/Anabol1ks/linkvault-proto/link/v1;linkv1";
 import "validate/validate.proto";
 import "google/protobuf/empty.proto";
 import "google/protobuf/wrappers.proto";
-
+import "google/api/annotations.proto";
 
 service LinkService {
-  rpc CreateShortLink(CreateShortLinkRequest) returns (ShortLinkResponse);
-  rpc GetShortLink(GetShortLinkRequest) returns (ShortLinkResponse);
-  rpc RedirectLink(RedirectLinkRequest) returns (RedirectLinkResponse);
-  rpc DeleteShortLink(DeleteShortLinkRequest) returns (DeleteShortLinkResponse);
-  rpc ListShortLinks(google.protobuf.Empty) returns (ListShortLinksResponse);
-  rpc GetLinkStats(GetLinkStatsRequest) returns (LinkStatsResponse);
-  rpc GetLinkClicks(GetLinkClicksRequest) returns (GetLinkClicksResponse);
-}
+  // Создание короткой ссылки
+  rpc CreateShortLink(CreateShortLinkRequest) returns (ShortLinkResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/links"
+      body: "*"
+    };
+  }
 
+  // Получение короткой ссылки по id
+  rpc GetShortLink(GetShortLinkRequest) returns (ShortLinkResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/links/{id}"
+    };
+  }
+
+  // Публичный редирект (анонимный) — возвращает оригинальный URL; gateway преобразует в HTTP 302
+  rpc RedirectLink(RedirectLinkRequest) returns (RedirectLinkResponse) {
+    option (google.api.http) = {
+      get: "/r/{short_code}"
+    };
+  }
+
+  // Удаление короткой ссылки
+  rpc DeleteShortLink(DeleteShortLinkRequest) returns (DeleteShortLinkResponse) {
+    option (google.api.http) = {
+      delete: "/api/v1/links/{id}"
+    };
+  }
+
+  // Список ссылок текущего пользователя
+  rpc ListShortLinks(google.protobuf.Empty) returns (ListShortLinksResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/links"
+    };
+  }
+
+  // Статистика по ссылке
+  rpc GetLinkStats(GetLinkStatsRequest) returns (LinkStatsResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/links/{short_link_id}/stats"
+    };
+  }
+
+  // Сырые клики по ссылке
+  rpc GetLinkClicks(GetLinkClicksRequest) returns (GetLinkClicksResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/links/{short_link_id}/clicks"
+    };
+  }
+}
 
 message CreateShortLinkRequest {
   string original_url = 1 [(validate.rules).string = {uri: true, min_len: 5, max_len: 2048}];
   string expire_after = 2 [(validate.rules).string = {
-      pattern: "^[0-9]+[smhdw]$",
-      max_len: 16
-    }];
+    pattern: "^[0-9]+[smhdw]$",
+    max_len: 16
+  }];
 }
 
 message ShortLinkResponse {
@@ -58,13 +99,10 @@ message DeleteShortLinkResponse {
   string message = 1 [(validate.rules).string = {max_len: 256}];
 }
 
-
-
 message ListShortLinksResponse {
   repeated ShortLinkResponse links = 1;
 }
 
-// --- Статистика по ссылке ---
 message GetLinkStatsRequest {
   string short_link_id = 1 [(validate.rules).string = {uuid: true}];
 }
@@ -83,7 +121,6 @@ message DetailedLinkStats {
   map<string, int64> daily_stats = 7;
 }
 
-// --- Клики по ссылке ---
 message GetLinkClicksRequest {
   string short_link_id = 1 [(validate.rules).string = {uuid: true}];
 }
@@ -100,4 +137,3 @@ message Click {
   string country = 5 [(validate.rules).string = {max_len: 64}];
   string region = 6 [(validate.rules).string = {max_len: 64}];
 }
-

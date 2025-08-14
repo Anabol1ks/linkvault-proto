@@ -8,6 +8,7 @@ package authv1
 
 import (
 	_ "github.com/envoyproxy/protoc-gen-validate/validate"
+	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	emptypb "google.golang.org/protobuf/types/known/emptypb"
@@ -699,7 +700,7 @@ var File_auth_v1_auth_proto protoreflect.FileDescriptor
 
 const file_auth_v1_auth_proto_rawDesc = "" +
 	"\n" +
-	"\x12auth/v1/auth.proto\x12\aauth.v1\x1a\x1bgoogle/protobuf/empty.proto\x1a\x17validate/validate.proto\"3\n" +
+	"\x12auth/v1/auth.proto\x12\aauth.v1\x1a\x1bgoogle/protobuf/empty.proto\x1a\x17validate/validate.proto\x1a\x1cgoogle/api/annotations.proto\"3\n" +
 	"\x1bRequestPasswordResetRequest\x12\x14\n" +
 	"\x05email\x18\x01 \x01(\tR\x05email\"a\n" +
 	"\x1bConfirmPasswordResetRequest\x12\x14\n" +
@@ -734,19 +735,19 @@ const file_auth_v1_auth_proto_rawDesc = "" +
 	"\x05valid\x18\x02 \x01(\bR\x05valid\"*\n" +
 	"\x12VerifyEmailRequest\x12\x14\n" +
 	"\x05token\x18\x01 \x01(\tR\x05token\" \n" +
-	"\x1eResendVerificationEmailRequest2\xe2\x05\n" +
-	"\vAuthService\x12?\n" +
-	"\bRegister\x12\x18.auth.v1.RegisterRequest\x1a\x19.auth.v1.RegisterResponse\x122\n" +
-	"\x05Login\x12\x15.auth.v1.LoginRequest\x1a\x12.auth.v1.TokenPair\x126\n" +
-	"\aRefresh\x12\x17.auth.v1.RefreshRequest\x1a\x12.auth.v1.TokenPair\x12>\n" +
+	"\x1eResendVerificationEmailRequest2\xe1\b\n" +
+	"\vAuthService\x12a\n" +
+	"\bRegister\x12\x18.auth.v1.RegisterRequest\x1a\x19.auth.v1.RegisterResponse\" \x82\xd3\xe4\x93\x02\x1a:\x01*\"\x15/api/v1/auth/register\x12Q\n" +
+	"\x05Login\x12\x15.auth.v1.LoginRequest\x1a\x12.auth.v1.TokenPair\"\x1d\x82\xd3\xe4\x93\x02\x17:\x01*\"\x12/api/v1/auth/login\x12W\n" +
+	"\aRefresh\x12\x17.auth.v1.RefreshRequest\x1a\x12.auth.v1.TokenPair\"\x1f\x82\xd3\xe4\x93\x02\x19:\x01*\"\x14/api/v1/auth/refresh\x12\\\n" +
 	"\n" +
-	"GetProfile\x12\x1a.auth.v1.GetProfileRequest\x1a\x14.auth.v1.UserProfile\x128\n" +
-	"\x06Logout\x12\x16.auth.v1.LogoutRequest\x1a\x16.google.protobuf.Empty\x12`\n" +
-	"\x13ValidateAccessToken\x12#.auth.v1.ValidateAccessTokenRequest\x1a$.auth.v1.ValidateAccessTokenResponse\x12B\n" +
-	"\vVerifyEmail\x12\x1b.auth.v1.VerifyEmailRequest\x1a\x16.google.protobuf.Empty\x12Z\n" +
-	"\x17ResendVerificationEmail\x12'.auth.v1.ResendVerificationEmailRequest\x1a\x16.google.protobuf.Empty\x12T\n" +
-	"\x14RequestPasswordReset\x12$.auth.v1.RequestPasswordResetRequest\x1a\x16.google.protobuf.Empty\x12T\n" +
-	"\x14ConfirmPasswordReset\x12$.auth.v1.ConfirmPasswordResetRequest\x1a\x16.google.protobuf.EmptyB5Z3github.com/Anabol1ks/linkvault-proto/auth/v1;authv1b\x06proto3"
+	"GetProfile\x12\x1a.auth.v1.GetProfileRequest\x1a\x14.auth.v1.UserProfile\"\x1c\x82\xd3\xe4\x93\x02\x16\x12\x14/api/v1/auth/profile\x12U\n" +
+	"\x06Logout\x12\x16.auth.v1.LogoutRequest\x1a\x16.google.protobuf.Empty\"\x1b\x82\xd3\xe4\x93\x02\x15\"\x13/api/v1/auth/logout\x12\x89\x01\n" +
+	"\x13ValidateAccessToken\x12#.auth.v1.ValidateAccessTokenRequest\x1a$.auth.v1.ValidateAccessTokenResponse\"'\x82\xd3\xe4\x93\x02!:\x01*\"\x1c/api/v1/auth/validate-access\x12m\n" +
+	"\vVerifyEmail\x12\x1b.auth.v1.VerifyEmailRequest\x1a\x16.google.protobuf.Empty\")\x82\xd3\xe4\x93\x02#\x12!/api/v1/auth/verify-email/{token}\x12\x84\x01\n" +
+	"\x17ResendVerificationEmail\x12'.auth.v1.ResendVerificationEmailRequest\x1a\x16.google.protobuf.Empty\"(\x82\xd3\xe4\x93\x02\"\" /api/v1/auth/verify-email/resend\x12\x84\x01\n" +
+	"\x14RequestPasswordReset\x12$.auth.v1.RequestPasswordResetRequest\x1a\x16.google.protobuf.Empty\".\x82\xd3\xe4\x93\x02(:\x01*\"#/api/v1/auth/password/reset/request\x12\x84\x01\n" +
+	"\x14ConfirmPasswordReset\x12$.auth.v1.ConfirmPasswordResetRequest\x1a\x16.google.protobuf.Empty\".\x82\xd3\xe4\x93\x02(:\x01*\"#/api/v1/auth/password/reset/confirmB5Z3github.com/Anabol1ks/linkvault-proto/auth/v1;authv1b\x06proto3"
 
 var (
 	file_auth_v1_auth_proto_rawDescOnce sync.Once

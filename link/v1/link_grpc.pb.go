@@ -33,12 +33,19 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type LinkServiceClient interface {
+	// Создание короткой ссылки
 	CreateShortLink(ctx context.Context, in *CreateShortLinkRequest, opts ...grpc.CallOption) (*ShortLinkResponse, error)
+	// Получение короткой ссылки по id
 	GetShortLink(ctx context.Context, in *GetShortLinkRequest, opts ...grpc.CallOption) (*ShortLinkResponse, error)
+	// Публичный редирект (анонимный) — возвращает оригинальный URL; gateway преобразует в HTTP 302
 	RedirectLink(ctx context.Context, in *RedirectLinkRequest, opts ...grpc.CallOption) (*RedirectLinkResponse, error)
+	// Удаление короткой ссылки
 	DeleteShortLink(ctx context.Context, in *DeleteShortLinkRequest, opts ...grpc.CallOption) (*DeleteShortLinkResponse, error)
+	// Список ссылок текущего пользователя
 	ListShortLinks(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*ListShortLinksResponse, error)
+	// Статистика по ссылке
 	GetLinkStats(ctx context.Context, in *GetLinkStatsRequest, opts ...grpc.CallOption) (*LinkStatsResponse, error)
+	// Сырые клики по ссылке
 	GetLinkClicks(ctx context.Context, in *GetLinkClicksRequest, opts ...grpc.CallOption) (*GetLinkClicksResponse, error)
 }
 
@@ -124,12 +131,19 @@ func (c *linkServiceClient) GetLinkClicks(ctx context.Context, in *GetLinkClicks
 // All implementations must embed UnimplementedLinkServiceServer
 // for forward compatibility.
 type LinkServiceServer interface {
+	// Создание короткой ссылки
 	CreateShortLink(context.Context, *CreateShortLinkRequest) (*ShortLinkResponse, error)
+	// Получение короткой ссылки по id
 	GetShortLink(context.Context, *GetShortLinkRequest) (*ShortLinkResponse, error)
+	// Публичный редирект (анонимный) — возвращает оригинальный URL; gateway преобразует в HTTP 302
 	RedirectLink(context.Context, *RedirectLinkRequest) (*RedirectLinkResponse, error)
+	// Удаление короткой ссылки
 	DeleteShortLink(context.Context, *DeleteShortLinkRequest) (*DeleteShortLinkResponse, error)
+	// Список ссылок текущего пользователя
 	ListShortLinks(context.Context, *emptypb.Empty) (*ListShortLinksResponse, error)
+	// Статистика по ссылке
 	GetLinkStats(context.Context, *GetLinkStatsRequest) (*LinkStatsResponse, error)
+	// Сырые клики по ссылке
 	GetLinkClicks(context.Context, *GetLinkClicksRequest) (*GetLinkClicksResponse, error)
 	mustEmbedUnimplementedLinkServiceServer()
 }

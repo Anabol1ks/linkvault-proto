@@ -8,6 +8,7 @@ package linkv1
 
 import (
 	_ "github.com/envoyproxy/protoc-gen-validate/validate"
+	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	emptypb "google.golang.org/protobuf/types/known/emptypb"
@@ -432,7 +433,6 @@ func (x *ListShortLinksResponse) GetLinks() []*ShortLinkResponse {
 	return nil
 }
 
-// --- Статистика по ссылке ---
 type GetLinkStatsRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	ShortLinkId   string                 `protobuf:"bytes,1,opt,name=short_link_id,json=shortLinkId,proto3" json:"short_link_id,omitempty"`
@@ -613,7 +613,6 @@ func (x *DetailedLinkStats) GetDailyStats() map[string]int64 {
 	return nil
 }
 
-// --- Клики по ссылке ---
 type GetLinkClicksRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	ShortLinkId   string                 `protobuf:"bytes,1,opt,name=short_link_id,json=shortLinkId,proto3" json:"short_link_id,omitempty"`
@@ -790,7 +789,7 @@ var File_link_v1_link_proto protoreflect.FileDescriptor
 
 const file_link_v1_link_proto_rawDesc = "" +
 	"\n" +
-	"\x12link/v1/link.proto\x12\alink.v1\x1a\x17validate/validate.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1egoogle/protobuf/wrappers.proto\"\x87\x01\n" +
+	"\x12link/v1/link.proto\x12\alink.v1\x1a\x17validate/validate.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1egoogle/protobuf/wrappers.proto\x1a\x1cgoogle/api/annotations.proto\"\x87\x01\n" +
 	"\x16CreateShortLinkRequest\x120\n" +
 	"\foriginal_url\x18\x01 \x01(\tB\r\xfaB\n" +
 	"r\b\x10\x05\x18\x80\x10\x88\x01\x01R\voriginalUrl\x12;\n" +
@@ -849,15 +848,15 @@ const file_link_v1_link_proto_rawDesc = "" +
 	"\n" +
 	"clicked_at\x18\x04 \x01(\tR\tclickedAt\x12!\n" +
 	"\acountry\x18\x05 \x01(\tB\a\xfaB\x04r\x02\x18@R\acountry\x12\x1f\n" +
-	"\x06region\x18\x06 \x01(\tB\a\xfaB\x04r\x02\x18@R\x06region2\xaf\x04\n" +
-	"\vLinkService\x12N\n" +
-	"\x0fCreateShortLink\x12\x1f.link.v1.CreateShortLinkRequest\x1a\x1a.link.v1.ShortLinkResponse\x12H\n" +
-	"\fGetShortLink\x12\x1c.link.v1.GetShortLinkRequest\x1a\x1a.link.v1.ShortLinkResponse\x12K\n" +
-	"\fRedirectLink\x12\x1c.link.v1.RedirectLinkRequest\x1a\x1d.link.v1.RedirectLinkResponse\x12T\n" +
-	"\x0fDeleteShortLink\x12\x1f.link.v1.DeleteShortLinkRequest\x1a .link.v1.DeleteShortLinkResponse\x12I\n" +
-	"\x0eListShortLinks\x12\x16.google.protobuf.Empty\x1a\x1f.link.v1.ListShortLinksResponse\x12H\n" +
-	"\fGetLinkStats\x12\x1c.link.v1.GetLinkStatsRequest\x1a\x1a.link.v1.LinkStatsResponse\x12N\n" +
-	"\rGetLinkClicks\x12\x1d.link.v1.GetLinkClicksRequest\x1a\x1e.link.v1.GetLinkClicksResponseB5Z3github.com/Anabol1ks/linkvault-proto/link/v1;linkv1b\x06proto3"
+	"\x06region\x18\x06 \x01(\tB\a\xfaB\x04r\x02\x18@R\x06region2\x8c\x06\n" +
+	"\vLinkService\x12h\n" +
+	"\x0fCreateShortLink\x12\x1f.link.v1.CreateShortLinkRequest\x1a\x1a.link.v1.ShortLinkResponse\"\x18\x82\xd3\xe4\x93\x02\x12:\x01*\"\r/api/v1/links\x12d\n" +
+	"\fGetShortLink\x12\x1c.link.v1.GetShortLinkRequest\x1a\x1a.link.v1.ShortLinkResponse\"\x1a\x82\xd3\xe4\x93\x02\x14\x12\x12/api/v1/links/{id}\x12d\n" +
+	"\fRedirectLink\x12\x1c.link.v1.RedirectLinkRequest\x1a\x1d.link.v1.RedirectLinkResponse\"\x17\x82\xd3\xe4\x93\x02\x11\x12\x0f/r/{short_code}\x12p\n" +
+	"\x0fDeleteShortLink\x12\x1f.link.v1.DeleteShortLinkRequest\x1a .link.v1.DeleteShortLinkResponse\"\x1a\x82\xd3\xe4\x93\x02\x14*\x12/api/v1/links/{id}\x12`\n" +
+	"\x0eListShortLinks\x12\x16.google.protobuf.Empty\x1a\x1f.link.v1.ListShortLinksResponse\"\x15\x82\xd3\xe4\x93\x02\x0f\x12\r/api/v1/links\x12u\n" +
+	"\fGetLinkStats\x12\x1c.link.v1.GetLinkStatsRequest\x1a\x1a.link.v1.LinkStatsResponse\"+\x82\xd3\xe4\x93\x02%\x12#/api/v1/links/{short_link_id}/stats\x12|\n" +
+	"\rGetLinkClicks\x12\x1d.link.v1.GetLinkClicksRequest\x1a\x1e.link.v1.GetLinkClicksResponse\",\x82\xd3\xe4\x93\x02&\x12$/api/v1/links/{short_link_id}/clicksB5Z3github.com/Anabol1ks/linkvault-proto/link/v1;linkv1b\x06proto3"
 
 var (
 	file_link_v1_link_proto_rawDescOnce sync.Once

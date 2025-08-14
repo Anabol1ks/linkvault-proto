@@ -6,18 +6,84 @@ option go_package = "github.com/Anabol1ks/linkvault-proto/auth/v1;authv1";
 
 import "google/protobuf/empty.proto";
 import "validate/validate.proto";
+import "google/api/annotations.proto";
 
 service AuthService {
-  rpc Register (RegisterRequest) returns (RegisterResponse);
-  rpc Login (LoginRequest) returns (TokenPair);
-  rpc Refresh (RefreshRequest) returns (TokenPair);
-  rpc GetProfile (GetProfileRequest) returns (UserProfile);
-  rpc Logout (LogoutRequest) returns (google.protobuf.Empty);
-  rpc ValidateAccessToken (ValidateAccessTokenRequest) returns (ValidateAccessTokenResponse);
-  rpc VerifyEmail (VerifyEmailRequest) returns (google.protobuf.Empty);
-  rpc ResendVerificationEmail (ResendVerificationEmailRequest) returns (google.protobuf.Empty);
-  rpc RequestPasswordReset (RequestPasswordResetRequest) returns (google.protobuf.Empty);
-  rpc ConfirmPasswordReset (ConfirmPasswordResetRequest) returns (google.protobuf.Empty);
+  // Регистрация нового пользователя
+  rpc Register (RegisterRequest) returns (RegisterResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/auth/register"
+      body: "*"
+    };
+  }
+
+  // Логин (получение пары токенов)
+  rpc Login (LoginRequest) returns (TokenPair) {
+    option (google.api.http) = {
+      post: "/api/v1/auth/login"
+      body: "*"
+    };
+  }
+
+  // Обновление токенов по refresh_token
+  rpc Refresh (RefreshRequest) returns (TokenPair) {
+    option (google.api.http) = {
+      post: "/api/v1/auth/refresh"
+      body: "*"
+    };
+  }
+
+  // Профиль текущего пользователя (по JWT)
+  rpc GetProfile (GetProfileRequest) returns (UserProfile) {
+    option (google.api.http) = {
+      get: "/api/v1/auth/profile"
+    };
+  }
+
+  // Выход (инвалидация refresh-токена)
+  rpc Logout (LogoutRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/api/v1/auth/logout"
+    };
+  }
+
+  // Валидация access токена (внутреннее / отладка)
+  rpc ValidateAccessToken (ValidateAccessTokenRequest) returns (ValidateAccessTokenResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/auth/validate-access"
+      body: "*"
+    };
+  }
+
+  // Подтверждение email (ссылка из письма)
+  rpc VerifyEmail (VerifyEmailRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      get: "/api/v1/auth/verify-email/{token}"
+    };
+  }
+
+  // Повторная отправка письма подтверждения
+  rpc ResendVerificationEmail (ResendVerificationEmailRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/api/v1/auth/verify-email/resend"
+    };
+  }
+
+  // Запрос на сброс пароля (отправка письма)
+  rpc RequestPasswordReset (RequestPasswordResetRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/api/v1/auth/password/reset/request"
+      body: "*"
+    };
+  }
+
+  // Подтверждение сброса пароля
+  rpc ConfirmPasswordReset (ConfirmPasswordResetRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/api/v1/auth/password/reset/confirm"
+      body: "*"
+    };
+  }
 }
 
 message RequestPasswordResetRequest {

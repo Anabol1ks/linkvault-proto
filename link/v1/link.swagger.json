@@ -1,0 +1,408 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "link/v1/link.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "LinkService"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/v1/links": {
+      "get": {
+        "summary": "Список ссылок текущего пользователя",
+        "operationId": "LinkService_ListShortLinks",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ListShortLinksResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "tags": [
+          "LinkService"
+        ]
+      },
+      "post": {
+        "summary": "Создание короткой ссылки",
+        "operationId": "LinkService_CreateShortLink",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ShortLinkResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1CreateShortLinkRequest"
+            }
+          }
+        ],
+        "tags": [
+          "LinkService"
+        ]
+      }
+    },
+    "/api/v1/links/{id}": {
+      "get": {
+        "summary": "Получение короткой ссылки по id",
+        "operationId": "LinkService_GetShortLink",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1ShortLinkResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "LinkService"
+        ]
+      },
+      "delete": {
+        "summary": "Удаление короткой ссылки",
+        "operationId": "LinkService_DeleteShortLink",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1DeleteShortLinkResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "LinkService"
+        ]
+      }
+    },
+    "/api/v1/links/{shortLinkId}/clicks": {
+      "get": {
+        "summary": "Сырые клики по ссылке",
+        "operationId": "LinkService_GetLinkClicks",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetLinkClicksResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "shortLinkId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "LinkService"
+        ]
+      }
+    },
+    "/api/v1/links/{shortLinkId}/stats": {
+      "get": {
+        "summary": "Статистика по ссылке",
+        "operationId": "LinkService_GetLinkStats",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1LinkStatsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "shortLinkId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "LinkService"
+        ]
+      }
+    },
+    "/r/{shortCode}": {
+      "get": {
+        "summary": "Публичный редирект (анонимный) — возвращает оригинальный URL; gateway преобразует в HTTP 302",
+        "operationId": "LinkService_RedirectLink",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1RedirectLinkResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "shortCode",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "LinkService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "v1Click": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "ip": {
+          "type": "string"
+        },
+        "userAgent": {
+          "type": "string"
+        },
+        "clickedAt": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "region": {
+          "type": "string"
+        }
+      }
+    },
+    "v1CreateShortLinkRequest": {
+      "type": "object",
+      "properties": {
+        "originalUrl": {
+          "type": "string"
+        },
+        "expireAfter": {
+          "type": "string"
+        }
+      }
+    },
+    "v1DeleteShortLinkResponse": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "v1DetailedLinkStats": {
+      "type": "object",
+      "properties": {
+        "total": {
+          "type": "string",
+          "format": "int64"
+        },
+        "uniqueIpCount": {
+          "type": "string",
+          "format": "int64"
+        },
+        "uniqueIps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "countriesCount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "countries": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "countriesStats": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string",
+            "format": "int64"
+          }
+        },
+        "dailyStats": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string",
+            "format": "int64"
+          }
+        }
+      }
+    },
+    "v1GetLinkClicksResponse": {
+      "type": "object",
+      "properties": {
+        "clicks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1Click"
+          }
+        }
+      }
+    },
+    "v1LinkStatsResponse": {
+      "type": "object",
+      "properties": {
+        "stats": {
+          "$ref": "#/definitions/v1DetailedLinkStats"
+        }
+      }
+    },
+    "v1ListShortLinksResponse": {
+      "type": "object",
+      "properties": {
+        "links": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/v1ShortLinkResponse"
+          }
+        }
+      }
+    },
+    "v1RedirectLinkResponse": {
+      "type": "object",
+      "properties": {
+        "originalUrl": {
+          "type": "string"
+        }
+      }
+    },
+    "v1ShortLinkResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "shortUrl": {
+          "type": "string"
+        },
+        "originalUrl": {
+          "type": "string"
+        },
+        "shortCode": {
+          "type": "string"
+        },
+        "userId": {
+          "type": "string"
+        },
+        "expireAt": {
+          "type": "string"
+        },
+        "isActive": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}
